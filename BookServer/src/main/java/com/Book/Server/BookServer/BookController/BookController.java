@@ -45,6 +45,7 @@ public class BookController
                 book.setRating(rs.getDouble("rating"));
                 book.setAvailable(rs.getBoolean("isAvailable"));
                 books.add(book);
+                System.out.println("done");
             }
             conn.close();
         } catch (SQLException e) {
