@@ -164,7 +164,7 @@ public class BookController
         }
         return books;
     }
-    @GetMapping("/Avaliable/{name}")
+    @GetMapping("/Available/{name}")
     public List<BookInfo> Available(@PathVariable String name)
     {
         List<BookInfo> books = new ArrayList<>();
