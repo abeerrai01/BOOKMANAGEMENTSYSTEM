@@ -164,4 +164,41 @@ public class BookController
         }
         return books;
     }
+    @GetMapping("/Avaliable/{name}")
+    public List<BookInfo> Available(@PathVariable String name)
+    {
+        List<BookInfo> books = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        }
+        try {
+            Connection conn = DriverManager.getConnection(url, username, password);
+            String query="SELECT * FROM BOOKINFO WHERE Available=?;";
+            PreparedStatement ps=conn.prepareStatement(query);
+            ps.setString(1,name);
+            ResultSet rs= ps.executeQuery();
+            while(rs.next())
+            {
+                BookInfo book=new BookInfo();
+                book.setBookId(rs.getInt("bookId"));
+                book.setIsbn(rs.getString("isbn"));
+                book.setBookName(rs.getString("bookName"));
+                book.setAuthor(rs.getString("author"));
+                book.setGenre(rs.getString("genre"));
+                book.setPublishedYear(rs.getInt("publishedYear"));
+                book.setLanguage(rs.getString("language"));
+                book.setNumberOfPages(rs.getInt("numberOfPages"));
+                book.setRating(rs.getDouble("rating"));
+                book.setAvailable(rs.getBoolean("isAvailable"));
+                books.add(book);
+
+            }
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return books;
+    }
 }
