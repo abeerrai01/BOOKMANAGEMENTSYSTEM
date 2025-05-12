@@ -175,7 +175,7 @@ public class BookController
         }
         try {
             Connection conn = DriverManager.getConnection(url, username, password);
-            String query="SELECT * FROM BOOKINFO WHERE Available=?;";
+            String query="SELECT * FROM BOOKINFO WHERE isAvailable=?;";
             PreparedStatement ps=conn.prepareStatement(query);
             ps.setString(1,name);
             ResultSet rs= ps.executeQuery();
