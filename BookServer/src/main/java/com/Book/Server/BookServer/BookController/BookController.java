@@ -164,8 +164,8 @@ public class BookController
         }
         return books;
     }
-    @GetMapping("/Available/{name}")
-    public List<BookInfo> Available(@PathVariable String name)
+    @GetMapping("/Available/{bit}")
+    public List<BookInfo> Available(@PathVariable int bit)
     {
         List<BookInfo> books = new ArrayList<>();
         try {
@@ -177,7 +177,7 @@ public class BookController
             Connection conn = DriverManager.getConnection(url, username, password);
             String query="SELECT * FROM BOOKINFO WHERE isAvailable=?;";
             PreparedStatement ps=conn.prepareStatement(query);
-            ps.setString(1,name);
+            ps.setInt(1,bit);
             ResultSet rs= ps.executeQuery();
             while(rs.next())
             {
